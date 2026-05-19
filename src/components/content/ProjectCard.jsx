@@ -20,6 +20,11 @@ const getPreviewUrl = (url, isTablet) => {
 export const ProjectCard = ({ project, onPreviewClick }) => {
   const [imageLoaded, setImageLoaded] = React.useState(false);
 
+  // Reset image loaded state immediately when active project changes
+  React.useEffect(() => {
+    setImageLoaded(false);
+  }, [project.name]);
+
   const projectStyle = {
     bg: "from-accent-orange/5 to-transparent dark:from-accent-orange/10 dark:to-transparent",
     border: "hover:border-accent-orange/30",

@@ -283,23 +283,12 @@ export const ProjectsTab = () => {
 
         {/* Right Side: Active Project Showcase Card */}
         <div className="flex-1 min-w-0">
-          <AnimatePresence mode="wait">
-            {activeProject && (
-              <motion.div
-                key={activeProject.name}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full flex"
-              >
-                <ProjectCard 
-                  project={activeProject} 
-                  onPreviewClick={setActivePreview}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {activeProject && (
+            <ProjectCard 
+              project={activeProject} 
+              onPreviewClick={setActivePreview}
+            />
+          )}
         </div>
 
       </div>
