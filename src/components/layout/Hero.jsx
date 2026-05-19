@@ -183,7 +183,7 @@ export const Hero = ({ theme }) => {
               className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-accent-orange/20 bg-accent-orange/5 text-accent-orange font-sans text-[10px] font-bold tracking-wider uppercase mb-6 select-none"
             >
               <MapPin size={11} className="text-accent-orange" />
-              <span>Cebú, Philippines</span>
+              <span>Cebu, Philippines</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse" />
               <span className="text-[9px] text-text-dim lowercase font-medium">Available for Hire</span>
             </motion.div>
