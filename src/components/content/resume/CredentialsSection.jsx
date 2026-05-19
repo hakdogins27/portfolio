@@ -152,28 +152,31 @@ export const CredentialsSection = () => {
       {activeCert && (
         <div 
           onClick={() => setActiveCert(null)}
-          className="fixed inset-0 z-50 bg-[#0c0c0e]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-10 select-none cursor-pointer"
+          className="fixed inset-0 z-50 bg-app/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-10 select-none cursor-pointer"
         >
-          {/* Close trigger button */}
-          <button 
-            onClick={() => setActiveCert(null)}
-            className="absolute top-6 right-6 p-2.5 rounded-full border border-border/20 bg-sidebar/50 hover:bg-sidebar text-text-primary transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer z-[60]"
-          >
-            <X size={18} />
-          </button>
-
           {/* Large Image Frame */}
           <div 
-            className="relative max-w-full max-h-[85vh] rounded-2xl overflow-hidden border border-border/20 shadow-2xl bg-sidebar/10 flex items-center justify-center p-1 cursor-default" 
+            className="relative flex flex-col max-w-full max-h-[90vh] rounded-2xl overflow-hidden border border-border/40 shadow-2xl bg-card cursor-default" 
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
-              src={activeCert.image} 
-              alt={activeCert.title} 
-              className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
-            />
+            {/* Close button inside the frame */}
+            <button 
+              onClick={() => setActiveCert(null)}
+              className="absolute top-3 right-3 p-1.5 rounded-lg border border-border/30 bg-sidebar/70 hover:bg-sidebar text-text-primary hover:text-accent-orange transition-all duration-200 cursor-pointer z-10"
+              title="Close"
+            >
+              <X size={16} />
+            </button>
+
+            <div className="flex items-center justify-center p-4 bg-sidebar/20 dark:bg-black/20">
+              <img 
+                src={activeCert.image} 
+                alt={activeCert.title} 
+                className="max-w-full max-h-[60vh] sm:max-h-[65vh] object-contain rounded-xl shadow-lg"
+              />
+            </div>
             {/* Modal Bottom Caption */}
-            <div className="absolute bottom-4 left-4 right-4 bg-[#0c0c0e]/85 backdrop-blur-md border border-border/20 rounded-xl p-3.5 text-left">
+            <div className="w-full bg-sidebar/40 dark:bg-[#0c0c0e]/95 border-t border-border/30 p-4 text-left">
               <h4 className="text-xs sm:text-sm font-black text-accent-orange uppercase tracking-wider">
                 {activeCert.title}
               </h4>
