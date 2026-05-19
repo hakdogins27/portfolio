@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Award, Eye, X } from 'lucide-react';
 import { portfolioData } from '../../../data/portfolioData';
-import hackathonCert from '../../../assets/hackathon-cert.png';
-import lifewoodCert from '../../../assets/lifewood-cert.jpeg';
+import hackathonCert from '../../../assets/Anthony Mendoza.png';
+import lifewoodCert from '../../../assets/Lifewood_COC.jpeg';
+
 
 export const CredentialsSection = () => {
   const { education } = portfolioData;
