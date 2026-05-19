@@ -195,15 +195,18 @@ export const Hero = ({ theme }) => {
               animate="visible"
               className="text-4xl sm:text-5xl md:text-6.5xl font-black tracking-tight leading-[1.03] text-text-primary transition-colors duration-500 font-sans flex flex-wrap"
             >
-              {"Anthony S. Mendoza".split("").map((char, index) => (
-                <motion.span 
-                  key={index} 
-                  variants={letterVariants}
-                  style={{ display: "inline-block" }}
-                  className={char === " " ? "mr-[0.24em]" : ""}
-                >
-                  {char}
-                </motion.span>
+              {["Anthony", "S.", "Mendoza"].map((word, wordIdx) => (
+                <span key={wordIdx} className="inline-block whitespace-nowrap mr-[0.24em] last:mr-0">
+                  {word.split("").map((char, charIdx) => (
+                    <motion.span 
+                      key={charIdx} 
+                      variants={letterVariants}
+                      style={{ display: "inline-block" }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
               ))}
             </motion.h1>
 
