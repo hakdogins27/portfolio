@@ -359,13 +359,19 @@ export const ContactTab = () => {
             Have an exciting project, AI integration challenge, or full-stack opportunity? Let's build something outstanding together.
           </p>
           
-          <motion.button 
-            whileTap={{ scale: 0.96 }}
-            whileHover={{ scale: 1.03 }}
-            className="mt-8 px-6 py-3.5 bg-accent-orange hover:bg-accent-orange/95 text-[#0c0c0e] font-black text-xs rounded-xl transition-all duration-300 shadow-md shadow-accent-orange/10 hover:shadow-lg hover:shadow-accent-orange/20 cursor-pointer tracking-widest uppercase"
+          <a 
+            href="/Resume.pdf" 
+            download="Anthony_Mendoza_Resume.pdf"
+            className="inline-block mt-8"
           >
-            Download Full Resume (PDF)
-          </motion.button>
+            <motion.button 
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ scale: 1.03 }}
+              className="w-full px-6 py-3.5 bg-accent-orange hover:bg-accent-orange/95 text-[#0c0c0e] font-black text-xs rounded-xl transition-all duration-300 shadow-md shadow-accent-orange/10 hover:shadow-lg hover:shadow-accent-orange/20 cursor-pointer tracking-widest uppercase"
+            >
+              Download Full Resume (PDF)
+            </motion.button>
+          </a>
         </motion.div>
 
         {/* Right Column: Sleek flat list cards directly on canvas background */}

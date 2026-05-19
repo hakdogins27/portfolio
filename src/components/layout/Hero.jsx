@@ -275,10 +275,18 @@ export const Hero = ({ theme }) => {
           >
             {/* Premium squircle frame */}
             <div className="w-full h-full rounded-3xl border border-border/40 p-2 bg-card/40 backdrop-blur-md relative overflow-hidden transition-all duration-500 group select-none shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+              {/* Bulletproof Static Fallback Image for Mobile/Instant Loading */}
+              <img
+                src={theme === 'light' ? identity.profileNoHat : identity.profilePicture}
+                alt={identity.name}
+                className="absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 z-0"
+              />
+
               {/* Video A: Dark to Light transition */}
               <video
                 ref={videoRefA}
                 src={profileAnimation}
+                poster={identity.profileNoHat}
                 playsInline
                 muted
                 preload="auto"
@@ -289,6 +297,7 @@ export const Hero = ({ theme }) => {
               <video
                 ref={videoRefB}
                 src={profileAnimation2}
+                poster={identity.profilePicture}
                 playsInline
                 muted
                 preload="auto"
