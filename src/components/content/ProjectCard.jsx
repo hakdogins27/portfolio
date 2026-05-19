@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Box, Loader2 } from 'lucide-react';
+import { Github, ExternalLink, Box } from 'lucide-react';
 import sneakylinkPreview from '../../assets/sneakylink-preview.png';
 
 // Helper to command third-party screenshot API to capture landscape tablet (1024x768) or mobile portrait (375x812) and wait 3s for animations
@@ -18,13 +18,6 @@ const getPreviewUrl = (url, isTablet) => {
 };
 
 export const ProjectCard = ({ project, onPreviewClick }) => {
-  const [imageLoaded, setImageLoaded] = React.useState(false);
-
-  // Reset image loaded state immediately when active project changes
-  React.useEffect(() => {
-    setImageLoaded(false);
-  }, [project.name]);
-
   const projectStyle = {
     bg: "from-accent-orange/5 to-transparent dark:from-accent-orange/10 dark:to-transparent",
     border: "hover:border-accent-orange/30",
@@ -128,21 +121,12 @@ export const ProjectCard = ({ project, onPreviewClick }) => {
             <div className="absolute inset-0 rounded-[12px] overflow-hidden bg-[#0c0c0f] z-10">
               {project.preview ? (
                 <>
-                  {!imageLoaded && (
-                    <div className="absolute inset-0 bg-[#0c0c0f] flex flex-col items-center justify-center gap-2 z-20">
-                      <Loader2 size={24} className="text-accent-orange animate-spin" />
-                      <span className="text-[9px] font-sans text-text-dim uppercase tracking-widest font-semibold animate-pulse">
-                        Rendering...
-                      </span>
-                    </div>
-                  )}
                   <motion.img 
                     src={sneakylinkPreview} 
                     alt={`${project.name} landscape preview`} 
-                    onLoad={() => setImageLoaded(true)}
                     whileHover={{ scale: 1.04 }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className={`w-full h-full object-cover object-top transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    className="w-full h-full object-cover object-top transition-all duration-300"
                     loading="lazy"
                   />
                   <motion.div 
@@ -182,21 +166,12 @@ export const ProjectCard = ({ project, onPreviewClick }) => {
             <div className="absolute inset-[1px] rounded-[22px] overflow-hidden bg-[#0c0c0f] z-10">
               {project.preview ? (
                 <>
-                  {!imageLoaded && (
-                    <div className="absolute inset-0 bg-[#0c0c0f] flex flex-col items-center justify-center gap-2 z-20">
-                      <Loader2 size={18} className="text-accent-orange animate-spin" />
-                      <span className="text-[8px] font-sans text-text-dim uppercase tracking-widest font-semibold animate-pulse">
-                        Rendering...
-                      </span>
-                    </div>
-                  )}
                   <motion.img 
                     src={getPreviewUrl(project.preview, false)} 
                     alt={`${project.name} mobile preview`} 
-                    onLoad={() => setImageLoaded(true)}
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className={`w-full h-full object-cover object-top transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    className="w-full h-full object-cover object-top transition-all duration-300"
                     loading="lazy"
                   />
                   <motion.div 
