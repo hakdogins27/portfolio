@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { portfolioDataText } from '../data/portfolioDataText';
 import { personalQnA } from '../data/personalQnA';
 import { assistantRules } from '../data/assistantRules';
 
@@ -25,7 +25,7 @@ export const useChat = () => {
     setIsThinking(true);
 
     try {
-      const systemPrompt = `${assistantRules.persona} ${assistantRules.strictMode} ${assistantRules.fallback} ${assistantRules.security} ${assistantRules.tone}\n\nCore Knowledge Base:\n${JSON.stringify(portfolioData)}\n\nPersonal Q&A:\n${JSON.stringify(personalQnA)}`;
+      const systemPrompt = `${assistantRules.persona} ${assistantRules.strictMode} ${assistantRules.fallback} ${assistantRules.security} ${assistantRules.tone}\n\nCore Knowledge Base:\n${JSON.stringify(portfolioDataText)}\n\nPersonal Q&A:\n${JSON.stringify(personalQnA)}`;
       
       let response;
       if (import.meta.env.DEV && import.meta.env.VITE_GROQ_API_KEY) {

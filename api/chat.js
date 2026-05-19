@@ -1,4 +1,4 @@
-import { portfolioData } from '../src/data/portfolioData.js';
+import { portfolioDataText } from '../src/data/portfolioDataText.js';
 import { personalQnA } from '../src/data/personalQnA.js';
 import { assistantRules } from '../src/data/assistantRules.js';
 
@@ -19,14 +19,21 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Validation Error: "query" exceeds limit of 250 characters.' });
     }
 
+    // Securely retrieve Groq API key (allowing fallback to VITE_GROQ_API_KEY)
+    const apiKey = (process.env.GROQ_API_KEY || process.env.VITE_GROQ_API_KEY || '').trim();
+    if (!apiKey) {
+      console.error('Groq Proxy Error: API key is not configured in environment variables.');
+      return res.status(500).json({ error: 'Internal Server Error: AI Service Key not configured.' });
+    }
+
     // Construct the system prompt securely on the server
-    const systemPrompt = `${assistantRules.persona} ${assistantRules.strictMode} ${assistantRules.fallback} ${assistantRules.security} ${assistantRules.tone}\n\nCore Knowledge Base:\n${JSON.stringify(portfolioData)}\n\nPersonal Q&A:\n${JSON.stringify(personalQnA)}`;
+    const systemPrompt = `${assistantRules.persona} ${assistantRules.strictMode} ${assistantRules.fallback} ${assistantRules.security} ${assistantRules.tone}\n\nCore Knowledge Base:\n${JSON.stringify(portfolioDataText)}\n\nPersonal Q&A:\n${JSON.stringify(personalQnA)}`;
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY.trim()}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: 'llama-3.1-8b-instant',
