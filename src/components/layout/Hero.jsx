@@ -239,7 +239,7 @@ export const Hero = ({ theme }) => {
               {/* Video A: Dark to Light transition */}
               <video
                 ref={videoRefA}
-                src={profileAnimation}
+                src={profileAnimation2}
                 poster={identity.profileNoHat}
                 playsInline
                 muted
@@ -252,7 +252,7 @@ export const Hero = ({ theme }) => {
               {/* Video B: Light to Dark transition */}
               <video
                 ref={videoRefB}
-                src={profileAnimation2}
+                src={profileAnimation}
                 poster={identity.profilePicture}
                 playsInline
                 muted
