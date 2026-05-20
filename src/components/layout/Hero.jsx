@@ -16,6 +16,16 @@ export const Hero = ({ theme }) => {
   const [loadedA, setLoadedA] = React.useState(false);
   const [loadedB, setLoadedB] = React.useState(false);
 
+  // Programmatically force mobile browsers to preload the video assets on mount
+  React.useEffect(() => {
+    if (videoRefA.current) {
+      videoRefA.current.load();
+    }
+    if (videoRefB.current) {
+      videoRefB.current.load();
+    }
+  }, []);
+
   const sentenceVariants = {
     hidden: { opacity: 1 },
     visible: {
