@@ -269,7 +269,7 @@ export const Hero = ({ theme }) => {
               <video
                 ref={videoRefA}
                 src={profileAnimation2}
-                poster={identity.profileNoHat}
+                poster={identity.profilePicture}
                 playsInline
                 muted
                 preload="auto"
@@ -285,7 +285,7 @@ export const Hero = ({ theme }) => {
               <video
                 ref={videoRefB}
                 src={profileAnimation}
-                poster={identity.profilePicture}
+                poster={identity.profileNoHat}
                 playsInline
                 muted
                 preload="auto"
