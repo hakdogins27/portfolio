@@ -29,6 +29,13 @@ export const useTheme = () => {
   }, [theme]);
 
   const toggleTheme = () => {
+    if (typeof window !== 'undefined') {
+      const root = window.document.documentElement;
+      root.classList.add('theme-transition');
+      setTimeout(() => {
+        root.classList.remove('theme-transition');
+      }, 500);
+    }
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 

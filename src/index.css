@@ -51,11 +51,28 @@
   }
 }
 
-/* Global Synchronized Smooth Transitions for Theme Switching */
-* {
-  transition-property: background-color, border-color, color, fill, stroke, text-decoration-color, box-shadow, opacity, filter !important;
+/* Global Synchronized Smooth Transitions ONLY during active Theme Switching */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition-property: background-color, border-color, color, fill, stroke, text-decoration-color, box-shadow !important;
   transition-duration: 500ms !important;
   transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1) !important;
+}
+
+/* Force hardware acceleration and remove tap-highlight overlay on Apple ecosystems */
+button, 
+a, 
+[role="button"], 
+.interactive-card,
+.glass-card,
+.glass {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* Premium Rotating Sun/Moon Transition */
