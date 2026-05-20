@@ -13,6 +13,7 @@ export const Hero = ({ theme }) => {
   const [activeVideo, setActiveVideo] = React.useState(() => {
     return theme === 'light' ? 'A' : 'B';
   });
+  const [isAnimatingTheme, setIsAnimatingTheme] = React.useState(false);
 
   const sentenceVariants = {
     hidden: { opacity: 1 },
@@ -34,33 +35,7 @@ export const Hero = ({ theme }) => {
     }
   };
 
-  // 1. Seek to stable end frames on initial page mount (no transition animation played)
-  React.useEffect(() => {
-    const videoA = videoRefA.current;
-    const videoB = videoRefB.current;
-
-    const setupInitialFrames = () => {
-      if (theme === 'light') {
-        if (videoA) videoA.currentTime = videoA.duration || 0;
-      } else {
-        if (videoB) videoB.currentTime = videoB.duration || 0;
-      }
-    };
-
-    if (videoA) videoA.addEventListener('loadedmetadata', setupInitialFrames);
-    if (videoB) videoB.addEventListener('loadedmetadata', setupInitialFrames);
-
-    if ((videoA && videoA.readyState >= 1) || (videoB && videoB.readyState >= 1)) {
-      setupInitialFrames();
-    }
-
-    return () => {
-      if (videoA) videoA.removeEventListener('loadedmetadata', setupInitialFrames);
-      if (videoB) videoB.removeEventListener('loadedmetadata', setupInitialFrames);
-    };
-  }, []);
-
-  // 2. Play buttery-smooth native transition animation when theme changes
+  // Play buttery-smooth native transition animation when theme changes
   React.useEffect(() => {
     const videoA = videoRefA.current;
     const videoB = videoRefB.current;
@@ -70,57 +45,31 @@ export const Hero = ({ theme }) => {
       return;
     }
 
+    setIsAnimatingTheme(true);
+
     if (theme === 'light') {
       if (videoA) {
         videoA.currentTime = 0;
         videoA.playbackRate = 1.0;
-
-        const fallback = setTimeout(() => {
-          setActiveVideo('A');
-          videoA.removeEventListener('timeupdate', onTimeUpdate);
-        }, 150);
-
-        const onTimeUpdate = () => {
-          if (videoA.currentTime > 0) {
-            clearTimeout(fallback);
-            setActiveVideo('A');
-            videoA.removeEventListener('timeupdate', onTimeUpdate);
-          }
-        };
-
-        videoA.addEventListener('timeupdate', onTimeUpdate);
+        setActiveVideo('A');
         videoA.play().catch(() => {
-          clearTimeout(fallback);
-          setActiveVideo('A');
+          setIsAnimatingTheme(false);
         });
       } else {
         setActiveVideo('A');
+        setIsAnimatingTheme(false);
       }
     } else {
       if (videoB) {
         videoB.currentTime = 0;
         videoB.playbackRate = 1.0;
-
-        const fallback = setTimeout(() => {
-          setActiveVideo('B');
-          videoB.removeEventListener('timeupdate', onTimeUpdate);
-        }, 150);
-
-        const onTimeUpdate = () => {
-          if (videoB.currentTime > 0) {
-            clearTimeout(fallback);
-            setActiveVideo('B');
-            videoB.removeEventListener('timeupdate', onTimeUpdate);
-          }
-        };
-
-        videoB.addEventListener('timeupdate', onTimeUpdate);
+        setActiveVideo('B');
         videoB.play().catch(() => {
-          clearTimeout(fallback);
-          setActiveVideo('B');
+          setIsAnimatingTheme(false);
         });
       } else {
         setActiveVideo('B');
+        setIsAnimatingTheme(false);
       }
     }
   }, [theme]);
@@ -282,7 +231,9 @@ export const Hero = ({ theme }) => {
               <img
                 src={theme === 'light' ? identity.profileNoHat : identity.profilePicture}
                 alt={identity.name}
-                className="absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 z-0"
+                className={`absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 ${
+                  !isAnimatingTheme ? 'opacity-100 z-20' : 'opacity-0 z-10'
+                }`}
               />
 
               {/* Video A: Dark to Light transition */}
@@ -293,8 +244,10 @@ export const Hero = ({ theme }) => {
                 playsInline
                 muted
                 preload="auto"
-                className={`absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 ${activeVideo === 'A' ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
+                onEnded={() => setIsAnimatingTheme(false)}
+                className={`absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 ${
+                  isAnimatingTheme && activeVideo === 'A' ? 'opacity-100 z-20' : 'opacity-0 z-0'
+                }`}
               />
               {/* Video B: Light to Dark transition */}
               <video
@@ -304,8 +257,10 @@ export const Hero = ({ theme }) => {
                 playsInline
                 muted
                 preload="auto"
-                className={`absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 ${activeVideo === 'B' ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
+                onEnded={() => setIsAnimatingTheme(false)}
+                className={`absolute top-2 left-2 right-2 bottom-2 object-cover rounded-2xl filter brightness-[0.96] scale-[1.10] -translate-x-[5%] translate-y-[2%] transition-all duration-500 ${
+                  isAnimatingTheme && activeVideo === 'B' ? 'opacity-100 z-20' : 'opacity-0 z-0'
+                }`}
               />
             </div>
           </motion.div>
