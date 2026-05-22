@@ -30,8 +30,8 @@ export const portfolioDataText = {
     {
       name: "SAM — Service Automation Manager",
       status: "shipped",
-      stack: ["Next.js", "n8n Automation", "Groq AI", "Google Sheets", "Telegram API"],
-      description: "A smart, automated assistant that runs business workflows automatically. Features a visual dashboard showing real-time updates, live Google Sheets tracking, and instant Telegram notifications with no complex setup.",
+      stack: ["Next.js", "n8n Automation", "Groq AI", "Google Sheets", "Google Calendar API", "Telegram API"],
+      description: "A smart, automated assistant that runs business workflows automatically. Features a visual dashboard showing real-time updates, live Google Sheets tracking, automatic Google Calendar booking sync, and instant Telegram notifications with no complex setup.",
       github: "https://github.com/hakdogins27/pickleball-booking",
       demo: "https://sam-automation.vercel.app/",
       preview: "https://api.microlink.io/?url=https%3A%2F%2Fsam-automation.vercel.app%2F&screenshot=true&embed=screenshot.url"
@@ -86,7 +86,7 @@ export const portfolioDataText = {
     },
     { 
       category: "Backend & Real-Time DBs", 
-      items: ["Cloud Firestore (NoSQL)", "Firebase Authentication", "PeerJS / WebRTC Matchmaking", "Google Sheets API", "Telegram Bot API"], 
+      items: ["Cloud Firestore (NoSQL)", "Firebase Authentication", "PeerJS / WebRTC Matchmaking", "Google Sheets API", "Google Calendar API", "Telegram Bot API"], 
       color: "accent-green" 
     },
     { 
@@ -120,25 +120,5 @@ export const portfolioDataText = {
     "AI Integration",
     "Full Stack Web Development",
     "Git & GitHub Version Control"
-  ],
-  certificates: [
-    {
-      title: "Advanced Workflow Automation",
-      issuer: "n8n Academy",
-      period: "2024",
-      status: "Verified workflow orchestration credentials"
-    },
-    {
-      title: "Prompt Engineering for Developers",
-      issuer: "DeepLearning.AI & OpenAI",
-      period: "2024",
-      status: "Specialization in context routing and LLM logic"
-    },
-    {
-      title: "IT Automation with Python",
-      issuer: "Google Career Certificates",
-      period: "2024",
-      status: "Professional scripting & systems administration"
-    }
   ]
 };
