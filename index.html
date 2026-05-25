@@ -11,7 +11,7 @@
     (function() {
       const theme = localStorage.getItem('theme') || 'light';
       document.documentElement.classList.add(theme);
-      document.body.classList.add(theme);
+      if (document.body) document.body.classList.add(theme);
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>

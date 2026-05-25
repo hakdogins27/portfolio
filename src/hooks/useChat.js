@@ -9,6 +9,7 @@ export const useChat = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+  const lastSentRef = useRef(0);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +19,11 @@ export const useChat = () => {
   const handleSend = async (e) => {
     e.preventDefault();
     if (!inputValue.trim() || isThinking) return;
+
+    // Client-side cooldown: 3s between requests to reduce 429s
+    const now = Date.now();
+    if (now - lastSentRef.current < 3000) return;
+    lastSentRef.current = now;
 
     const query = inputValue.trim().slice(0, 250);
     setInputValue('');
@@ -53,15 +59,18 @@ export const useChat = () => {
       }
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error?.message || 'API Error');
+      if (!response.ok) throw new Error(response.status === 429 ? '429' : (data.error?.message || 'API Error'));
       
       setMessages(p => [...p, { role: 'assistant', content: data.choices[0].message.content }]);
     } catch (err) {
+      const is429 = err.message === '429';
       setMessages(p => [
         ...p,
         {
           role: 'assistant',
-          content: "I'm sorry, but my chat system is currently experiencing a high volume of requests or a brief connection issue. Please try again in a few moments, or feel free to reach out to me directly at mendozaony27@gmail.com!"
+          content: is429
+            ? "I'm receiving a lot of questions right now — please wait a moment and try again! You can also reach me directly at mendozaony27@gmail.com 📬"
+            : "I'm sorry, but my chat system is currently experiencing a brief connection issue. Please try again in a few moments, or feel free to reach out to me directly at mendozaony27@gmail.com!"
         }
       ]);
     } finally {
