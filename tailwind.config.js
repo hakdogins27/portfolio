@@ -24,10 +24,17 @@ export default {
         'accent-purple': 'rgb(var(--color-accent-purple) / <alpha-value>)',
         'accent-yellow': 'rgb(var(--color-accent-yellow) / <alpha-value>)',
         'accent-red': 'rgb(var(--color-accent-red) / <alpha-value>)',
+        // Zalio orange, with dark ink for text on it (white on orange fails AA contrast)
+        brand: {
+          DEFAULT: 'rgb(var(--color-brand) / <alpha-value>)',
+          ink: 'rgb(var(--color-brand-ink) / <alpha-value>)',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        display: ['Inter Tight', 'Inter', 'sans-serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SF Mono', 'Menlo', 'monospace'],
       },
       animation: {
         'cursor-blink': 'blink 1s infinite',
