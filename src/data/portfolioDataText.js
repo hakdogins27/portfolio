@@ -39,8 +39,8 @@ export const portfolioDataText = {
       title: "AI Assisted Full Stack Web Developer",
       period: "2025 – 2026",
       points: [
-        "Developed web projects integrating machine learning, AI features and game development elements",
-        "Helped implement AI-driven features to improve user experience and system efficiency"
+        "Built training prototypes exploring machine learning, AI features and game development",
+        "Practised AI-assisted full-stack development by testing new tools and approaches hands-on"
       ]
     }
   ],
