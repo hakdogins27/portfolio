@@ -8,7 +8,7 @@ import hackathonCert from '../../assets/Anthony Mendoza.png';
 import lifewoodCert from '../../assets/Lifewood_COC.jpeg';
 
 const CERTIFICATES = [
-  { title: 'Software Developer Intern', issuer: 'Lifewood Technologies', image: lifewoodCert },
+  { title: 'Software Developer Intern', issuer: 'Lifewood Data Technologies', image: lifewoodCert },
   { title: 'Hackathon Competitor', issuer: 'Collaborative Game Hackathon', image: hackathonCert },
 ];
 

@@ -9,7 +9,7 @@ export const portfolioDataText = {
     github: "github.com/hakdogins27?tab=repositories",
     linkedin: "linkedin.com/in/anthony-mendoza-6a4736367",
     availability: "OPEN FOR OPPORTUNITIES",
-    phone: "+63 945 123 4567",
+    phone: "+63 928 478 5737",
     graduation: "May 2025 (Graduated Cum Laude)",
     profile: "Software Engineer maximizing AI-assisted coding and agentic workflows to build high-performance systems. Expert at leveraging advanced LLMs, autonomic reasoning loops, and multi-agent coordination pipelines to design and deploy scalable, production-grade web systems with unmatched speed and reliability.",
     bio: "A highly driven Software Engineer and AI Agentic Specialist based in Cebu, who graduated Cum Laude. I maximize AI-assisted development alongside specialized AI Agentic Engineering—orchestrating complex multi-agent frameworks, background workflow automation, and high-performance Web-scale architectures that translate strategic goals into robust, production-grade solutions."
@@ -33,7 +33,7 @@ export const portfolioDataText = {
       stack: ["TanStack Start", "React", "TypeScript", "Python", "PostgreSQL"]
     },
     {
-      company: "Lifewood Data Technology",
+      company: "Lifewood Data Technologies",
       accent: "#10b981",
       role: "Intern",
       title: "AI Assisted Full Stack Web Developer",

@@ -23,7 +23,7 @@ export const CredentialsSection = () => {
   const certificates = [
     {
       title: "Software Developer Intern",
-      issuer: "Lifewood Technologies",
+      issuer: "Lifewood Data Technologies",
       period: "Internship",
       detail: "Software Developer Intern focusing on AI integrations, backend automation, and OJT technical workflows.",
       image: lifewoodCert
