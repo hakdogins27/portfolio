@@ -163,6 +163,7 @@ export const portfolioDataText = {
         "Live trace panel shows the automation as it runs"
       ],
       stack: ["Next.js", "TypeScript", "n8n", "Groq (Llama 3.3)", "Google Sheets", "Google Calendar", "Zod", "Framer Motion"],
+      demo: "https://sam-automation.vercel.app/",
       github: "https://github.com/hakdogins27/pickleball-booking"
     },
     {
@@ -185,6 +186,7 @@ export const portfolioDataText = {
         "Installable app (PWA) with an offline cache"
       ],
       stack: ["React", "Vite", "TypeScript", "Firebase", "Tailwind CSS", "Framer Motion"],
+      demo: "https://bkbasketball.vercel.app/",
       github: "https://github.com/hakdogins27/BK"
     }
   ],

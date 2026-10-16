@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { EASE } from '../ui/primitives';
 import { Link, useRouter } from '../../lib/router';
@@ -33,29 +33,98 @@ const useActiveSection = (path) => {
 
 // `scrolled` compacts the header; `hidden` tucks it away while reading downwards and brings it back
 // the moment the reader scrolls up.
-const useScrollState = () => {
+const COMPACT_ENTER_Y = 24;
+const COMPACT_EXIT_Y = 8;
+const HIDE_AFTER_Y = 480;
+const HIDE_SCROLL_DISTANCE = 24;
+const REVEAL_SCROLL_DISTANCE = 12;
+
+const useScrollState = (pauseHide) => {
   const [state, setState] = useState({ scrolled: false, hidden: false });
+  const stateRef = useRef(state);
+  const pauseHideRef = useRef(pauseHide);
+  pauseHideRef.current = pauseHide;
+
   useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const delta = y - last;
-      if (Math.abs(delta) < 6) return;
-      last = y;
-      setState({ scrolled: y > 12, hidden: delta > 0 && y > 480 });
+    let lastY = window.scrollY;
+    let lastDirection = 0;
+    let directionDistance = 0;
+    let frame = null;
+
+    const initial = { scrolled: lastY > COMPACT_ENTER_Y, hidden: false };
+    stateRef.current = initial;
+    setState(initial);
+
+    const commit = (next) => {
+      const previous = stateRef.current;
+      if (previous.scrolled === next.scrolled && previous.hidden === next.hidden) return;
+      stateRef.current = next;
+      setState(next);
     };
-    setState({ scrolled: window.scrollY > 12, hidden: false });
+
+    const update = () => {
+      frame = null;
+      const y = window.scrollY;
+      const previousY = lastY;
+      const delta = y - lastY;
+      lastY = y;
+
+      let { scrolled, hidden } = stateRef.current;
+      if (!scrolled && y > COMPACT_ENTER_Y) scrolled = true;
+      else if (scrolled && y < COMPACT_EXIT_Y) scrolled = false;
+
+      if (pauseHideRef.current) {
+        hidden = false;
+        lastDirection = 0;
+        directionDistance = 0;
+      } else if (Math.abs(delta) > 0.25) {
+        const direction = Math.sign(delta);
+        const traveled = direction > 0 && y > HIDE_AFTER_Y
+          ? y - Math.max(previousY, HIDE_AFTER_Y)
+          : direction > 0 ? 0 : Math.abs(delta);
+        directionDistance = direction === lastDirection
+          ? directionDistance + traveled
+          : traveled;
+        lastDirection = direction;
+
+        if (direction > 0 && y > HIDE_AFTER_Y && directionDistance >= HIDE_SCROLL_DISTANCE) {
+          hidden = true;
+        } else if (direction < 0 && hidden && directionDistance >= REVEAL_SCROLL_DISTANCE) {
+          hidden = false;
+        }
+      }
+
+      commit({ scrolled, hidden });
+    };
+
+    const onScroll = () => {
+      if (frame === null) frame = window.requestAnimationFrame(update);
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!pauseHide) return;
+    const previous = stateRef.current;
+    if (!previous.hidden) return;
+    const next = { ...previous, hidden: false };
+    stateRef.current = next;
+    setState(next);
+  }, [pauseHide]);
+
   return state;
 };
 
 // Wordmark: gradient name, live status dot, and a role line that turns into "Back to top" on hover.
-const Logo = ({ onClick, compact }) => (
+const Logo = ({ onClick, compact, reduceMotion }) => (
   <Link href="/#home" onClick={onClick} className="group flex items-center gap-3" aria-label="Anthony Mendoza — back to top">
     <span className="relative flex h-2.5 w-2.5 shrink-0">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+      <span className={`absolute inline-flex h-full w-full rounded-full bg-brand opacity-60 ${reduceMotion ? 'hidden' : 'animate-ping'}`} />
       <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand ring-4 ring-brand/15" />
     </span>
     <span className="leading-none">
@@ -63,11 +132,11 @@ const Logo = ({ onClick, compact }) => (
         Anthony Mendoza
       </span>
       <span
-        className={`block overflow-hidden text-[11px] font-medium text-text-dim transition-all duration-500 ${
+        className={`block overflow-hidden text-[11px] font-medium text-text-dim ${reduceMotion ? 'transition-none' : 'transition-[height,opacity,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]'} ${
           compact ? 'mt-0 h-0 opacity-0' : 'mt-1 h-3.5 opacity-100'
         }`}
       >
-        <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
+        <span className={`block ${reduceMotion ? '' : 'transition-transform duration-300 ease-out group-hover:-translate-y-full'}`}>
           <span className="block h-3.5">Software Engineer</span>
           <span className="block h-3.5 text-text-primary">Back to top ↑</span>
         </span>
@@ -82,21 +151,27 @@ export const Navbar = ({ theme, toggleTheme }) => {
   const activeSection = useActiveSection(path);
   // Nothing is highlighted while reading a project page.
   const active = path === '/' ? activeSection : null;
-  const { scrolled, hidden } = useScrollState();
   const [hovered, setHovered] = useState(null);
   const [open, setOpen] = useState(false);
+  const [hasFocusWithin, setHasFocusWithin] = useState(false);
+  const { scrolled, hidden } = useScrollState(open || hasFocusWithin);
+  const reduceMotion = useReducedMotion();
   const highlight = hovered ?? active;
   const ThemeIcon = theme === 'dark' ? Sun : Moon;
 
   return (
     <header
       style={{ viewTransitionName: 'site-header' }}
-      className={`fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 sm:pt-4 ${
+      onFocusCapture={() => setHasFocusWithin(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setHasFocusWithin(false);
+      }}
+      className={`fixed inset-x-0 top-0 z-50 px-3 pt-3 ${reduceMotion ? 'transition-none' : 'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]'} sm:px-6 sm:pt-4 ${
         hidden && !open ? '-translate-y-[130%]' : 'translate-y-0'
       }`}
     >
       <div
-        className={`mx-auto rounded-2xl border transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`mx-auto rounded-2xl border ${reduceMotion ? 'transition-none' : 'transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]'} ${
           scrolled ? 'max-w-[52rem]' : 'max-w-[69rem]'
         } ${
           scrolled || open
@@ -105,11 +180,11 @@ export const Navbar = ({ theme, toggleTheme }) => {
         }`}
       >
         <nav
-          className={`flex items-center justify-between gap-4 px-3 transition-all duration-500 sm:px-4 ${
+          className={`flex items-center justify-between gap-4 px-3 ${reduceMotion ? 'transition-none' : 'transition-[height] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]'} sm:px-4 ${
             scrolled ? 'h-14' : 'h-16'
           }`}
         >
-          <Logo onClick={() => setOpen(false)} compact={scrolled} />
+          <Logo onClick={() => setOpen(false)} compact={scrolled} reduceMotion={reduceMotion} />
 
           <ul className="hidden items-center md:flex" onMouseLeave={() => setHovered(null)}>
             {LINKS.map(({ id, label }) => (
@@ -126,7 +201,7 @@ export const Navbar = ({ theme, toggleTheme }) => {
                 {highlight === id && (
                   <motion.span
                     layoutId="nav-highlight"
-                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                    transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 360, damping: 36 }}
                     className="absolute inset-0 rounded-full bg-dark"
                   />
                 )}
@@ -166,7 +241,7 @@ export const Navbar = ({ theme, toggleTheme }) => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: EASE }}
+              transition={{ duration: reduceMotion ? 0 : 0.35, ease: EASE }}
               className="overflow-hidden md:hidden"
             >
               <ul className="border-t border-border px-2 py-2">

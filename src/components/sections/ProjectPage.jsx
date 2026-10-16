@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Lock } from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
 import { EASE, Reveal } from '../ui/primitives';
 import { TechLogo, brandColor } from '../ui/TechLogo';
+import { ProjectGallery } from './ProjectGallery';
 import { Link } from '../../lib/router';
 import {
   isCompany,
@@ -28,7 +29,7 @@ const StoryRow = ({ index, title, emphasis, children }) => (
           {title} <em className="type-accent text-brand">{emphasis}</em>
         </h2>
       </div>
-      <div className="lg:pt-8">{children}</div>
+      <div className="min-w-0 lg:pt-8">{children}</div>
     </section>
   </Reveal>
 );
@@ -103,6 +104,19 @@ export const ProjectPage = ({ project }) => {
           <motion.p {...rise(0.22)} className="type-lead mt-8 max-w-2xl">
             {project.summary}
           </motion.p>
+          {project.demo && (
+            <motion.a
+              {...rise(0.28)}
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${title} live demo in a new tab`}
+              className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand px-5 text-sm font-semibold text-brand-ink transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+            >
+              Open live demo
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </motion.a>
+          )}
         </header>
 
         {/* Facts strip */}
@@ -174,6 +188,12 @@ export const ProjectPage = ({ project }) => {
               ))}
             </ul>
           </StoryRow>
+
+          {project.outputs?.length > 0 && (
+            <StoryRow index="04" title="See it" emphasis="in action">
+              <ProjectGallery key={project.name} projectName={project.name} outputs={project.outputs} />
+            </StoryRow>
+          )}
         </div>
 
         {/* Next / previous */}

@@ -142,7 +142,7 @@ export const Projects = () => {
         eyebrow="Selected work"
         title="Problems I've"
         emphasis="solved."
-        description="Production work at Zalio and real-world builds. Open one to see the problem and how I solved it."
+        description="Work at Zalio and real-world builds. Open one to see the problem and how I solved it."
       />
       <Group label="At Zalio" count={company.length + 1}>
         <Reveal>
