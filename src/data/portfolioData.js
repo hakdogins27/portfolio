@@ -10,6 +10,14 @@ import zalioMarketingNewsroom from '../assets/zalio-marketing-newsroom.png';
 import zalioMarketingStoryDetail from '../assets/zalio-marketing-story-detail.png';
 import zalioMarketingCreativeStudio from '../assets/zalio-marketing-creative-studio.png';
 import zalioMarketingLinks from '../assets/zalio-marketing-links.png';
+import zalioCrmCampaigns from '../assets/zalio-crm-campaigns.png';
+import zalioCrmForms from '../assets/zalio-crm-forms.png';
+import zalioCrmTemplates from '../assets/zalio-crm-templates.png';
+import zalioUiOverview from '../assets/zalio-ui-overview.png';
+import zalioUiColors from '../assets/zalio-ui-colors.png';
+import zalioUiButtons from '../assets/zalio-ui-buttons.png';
+import zalioUiPageLayout from '../assets/zalio-ui-page-layout.png';
+import zalioUiChat from '../assets/zalio-ui-chat.png';
 
 const projectOutputs = {
   'Zalio Marketing — AI Marketing Studio': [
@@ -48,6 +56,58 @@ const projectOutputs = {
       caption: 'Editor with profile and theme controls beside a mobile preview populated with a sample profile.',
       image: zalioMarketingLinks,
       alt: 'Links editor showing profile fields, social link rows, theme controls, and a live mobile preview of a sample profile.'
+    }
+  ],
+  'Zalio CRM — Campaign Tracker & Forms': [
+    {
+      title: 'Campaigns',
+      caption: 'Campaign tracker with four campaigns across live, ended, and draft states, plus filters and performance metrics.',
+      image: zalioCrmCampaigns,
+      alt: 'Campaigns dashboard showing four live, ended, and draft campaigns in a table, with filters and columns for campaign performance metrics.'
+    },
+    {
+      title: 'Forms',
+      caption: 'Forms directory with published and draft counts, conversion metrics, and the first form rows visible.',
+      image: zalioCrmForms,
+      alt: 'Forms dashboard with published and draft totals, conversion metrics, and a directory listing the first form rows.'
+    },
+    {
+      title: 'Templates',
+      caption: 'Template library with search, type, and sort controls; the current account has no templates created.',
+      image: zalioCrmTemplates,
+      alt: 'Templates page with search, type, and sort controls, showing an empty state because no templates have been created.'
+    }
+  ],
+  'Zalio UI — Design System': [
+    {
+      title: 'Overview',
+      caption: 'Introduction page for the design system, linking its foundations and component documentation.',
+      image: zalioUiOverview,
+      alt: 'Design system introduction page listing its foundations and component documentation.'
+    },
+    {
+      title: 'Colors',
+      caption: 'Light-mode token swatches for orange brand colors, surfaces, and chart colors.',
+      image: zalioUiColors,
+      alt: 'Color token documentation showing light-mode swatches for orange brand, surface, and chart colors.'
+    },
+    {
+      title: 'Buttons',
+      caption: 'Button size documentation with labeled and icon-only variants, plus a with-icon example.',
+      image: zalioUiButtons,
+      alt: 'Button documentation showing labeled and icon-only buttons at several sizes, and a button with an icon.'
+    },
+    {
+      title: 'Page layout',
+      caption: 'Workspace settings example with profile fields, save and cancel actions, and notification controls.',
+      image: zalioUiPageLayout,
+      alt: 'Page layout documentation showing workspace profile fields and save and cancel actions, followed by notification controls.'
+    },
+    {
+      title: 'Chat',
+      caption: 'Chat component documentation with a standalone composer and an assembled conversation example.',
+      image: zalioUiChat,
+      alt: 'Chat documentation showing a standalone composer and a conversation demo with a day separator, message, unread marker, and composer.'
     }
   ],
   'SAM — Service Automation Manager': [

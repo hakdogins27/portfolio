@@ -3,7 +3,7 @@ import { Reveal, SectionHeader } from '../ui/primitives';
 
 // Verified from GitHub (momentum-au org, Jun–Oct 2026) — update as the numbers grow.
 const STATS = [
-  { value: '131', label: 'Merged pull requests at Zalio' },
+  { value: '137', label: 'Merged pull requests at Zalio' },
   { value: '4', label: 'Zalio products I build on' },
   { value: 'Cebu', label: 'Based in the Philippines, working hybrid' },
 ];
