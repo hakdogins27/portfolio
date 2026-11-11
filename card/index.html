@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09090b">
+<meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Anthony S. Mendoza — software engineer in Cebu. Websites, business software, AI voice agents and automation. Explore my work and get in touch.">
 <meta property="og:title" content="Anthony S. Mendoza · Software Engineer">
@@ -18,6 +19,7 @@
   document.documentElement.classList.add(theme);
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
+  document.documentElement.style.backgroundColor = theme === 'dark' ? '#09090b' : '#ffffff';
   document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#09090b' : '#ffffff';
 })();
 </script>
@@ -80,6 +82,7 @@ const applyTheme = (theme) => {
   }
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
+  document.documentElement.style.backgroundColor = theme === 'dark' ? '#09090b' : '#ffffff';
   document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#09090b' : '#ffffff';
 };
 systemTheme.addEventListener('change', (event) => applyTheme(event.matches ? 'dark' : 'light'));

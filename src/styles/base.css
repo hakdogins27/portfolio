@@ -91,6 +91,7 @@ button{font:inherit}
   }
 
   html {
+    background-color:rgb(var(--color-app));
     scroll-behavior: smooth;
   }
 

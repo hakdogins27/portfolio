@@ -22,6 +22,14 @@ function watch(page) {
   return { errors, requests };
 }
 
+async function checkBrowserTint(page, theme) {
+  const background = theme === 'dark' ? 'rgb(9, 9, 11)' : 'rgb(255, 255, 255)';
+  await page.waitForFunction((color) => getComputedStyle(document.body).backgroundColor === color, background);
+  assert.equal(await page.locator('html').evaluate((element) => getComputedStyle(element).backgroundColor), background);
+  assert.equal(await page.locator('html').evaluate((element) => getComputedStyle(element).colorScheme), theme);
+  assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'), theme === 'dark' ? '#09090b' : '#ffffff');
+}
+
 async function checkWidths(page, checkTapTargets = false) {
   for (const width of widths) {
     await page.setViewportSize({ width, height: 844 });
@@ -45,6 +53,7 @@ try {
   const homeTrace = watch(home);
   await home.goto(url('/'), { waitUntil: 'networkidle' });
   assert.ok(await home.getByText('Open to new opportunities', { exact: true }).isVisible());
+  await checkBrowserTint(home, 'light');
   assert.equal(await home.locator('#home h1').evaluate((element) => getComputedStyle(element).opacity), '1');
   assert.ok(!homeTrace.requests.some((request) => request.includes('ProjectPage-')));
   await checkWidths(home);
@@ -53,8 +62,10 @@ try {
   await home.getByRole('button', { name: 'Switch to dark mode' }).click();
   assert.equal(await home.locator('html').getAttribute('data-theme'), null);
   assert.ok(await home.locator('html').evaluate((element) => element.classList.contains('dark')));
+  await checkBrowserTint(home, 'dark');
   await home.getByRole('button', { name: 'Switch to light mode' }).click();
   assert.ok(await home.locator('html').evaluate((element) => element.classList.contains('light')));
+  await checkBrowserTint(home, 'light');
 
   await home.locator('a[href="/work/zalio-marketing"]').first().click();
   await home.getByText('Private repository', { exact: true }).waitFor();
@@ -86,6 +97,8 @@ try {
     const trace = watch(page);
     await page.goto(url('/card'), { waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('data-theme'), theme);
+    await checkBrowserTint(page, theme);
+    assert.equal(await page.locator('body').evaluate((element) => getComputedStyle(element).backgroundImage), 'none');
     assert.equal(await page.locator('header, button, .profile-location, .background-heatmap').count(), 0);
     assert.equal(await page.locator('.project-arrow').count(), 6);
     assert.equal(await page.locator('.socials svg').count(), 7);
@@ -101,6 +114,7 @@ try {
     const next = theme === 'dark' ? 'light' : 'dark';
     await page.emulateMedia({ colorScheme: next });
     await page.waitForFunction((value) => document.documentElement.dataset.theme === value, next);
+    await checkBrowserTint(page, next);
     assert.ok(trace.requests.every((request) => new URL(request).origin === baseURL.origin), 'Unexpected external card request');
     assert.ok(!trace.requests.some((request) => /\.js(?:\?|$)/.test(request)), 'The static card loaded a JavaScript bundle');
     assert.deepEqual(trace.errors, []);

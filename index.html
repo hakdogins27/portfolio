@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="color-scheme" content="light dark" />
   <link rel="icon" href="/favicon.ico?v=5" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=5" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-photo-32.png?v=5" />
@@ -18,6 +20,10 @@
       document.documentElement.classList.add(theme);
       if (document.body) document.body.classList.add(theme);
       document.documentElement.setAttribute('data-theme', theme);
+      const background = theme === 'dark' ? '#09090b' : '#ffffff';
+      document.documentElement.style.colorScheme = theme;
+      document.documentElement.style.backgroundColor = background;
+      document.querySelector('meta[name="theme-color"]').content = background;
     })();
   </script>
 </head>

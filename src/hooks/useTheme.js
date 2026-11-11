@@ -25,6 +25,11 @@ export const useTheme = () => {
       body.classList.add('dark');
       root.removeAttribute('data-theme');
     }
+    const background = theme === 'dark' ? '#09090b' : '#ffffff';
+    root.style.colorScheme = theme;
+    root.style.backgroundColor = background;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.content = background;
     localStorage.setItem('theme', theme);
   }, [theme]);
 

@@ -1,14 +1,17 @@
 @import '../src/styles/base.css';
 
-body {
-  isolation: isolate;
+body { position: relative; isolation: isolate; min-height: 100svh; }
+/* Keep browser tint and overscroll solid; fade decoration inside the page edges. */
+body::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, #000 calc(72px + env(safe-area-inset-top, 0px)), #000 calc(100% - 72px - env(safe-area-inset-bottom, 0px)), transparent);
   background-image:
     radial-gradient(ellipse 90% 28% at 0% 8%, rgb(var(--color-brand) / .10), transparent 80%),
     radial-gradient(ellipse 100% 32% at 100% 48%, rgb(var(--color-brand) / .06), transparent 80%),
     radial-gradient(ellipse 95% 28% at 5% 90%, rgb(var(--color-brand) / .07), transparent 80%);
   background-repeat: no-repeat;
 }
-.background-grain { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .035; mix-blend-mode: soft-light; }
+.background-grain { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .035; mix-blend-mode: soft-light; mask-image: linear-gradient(transparent, #000 72px, #000 calc(100% - 72px), transparent); }
 .card-page {
   --muted: rgb(var(--color-text-muted));
   --line: rgb(var(--color-border));
