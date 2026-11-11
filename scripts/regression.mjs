@@ -87,6 +87,8 @@ try {
   const resume = await home.request.get(url('/Resume.pdf'));
   assert.equal(resume.status(), 200);
   assert.equal((await resume.body()).subarray(0, 5).toString(), '%PDF-');
+  await resume.dispose();
+  await home.request.dispose();
   assert.deepEqual(homeTrace.errors, []);
   console.log('PASS portfolio: themes, responsive layout, six direct project routes, gallery, navigation, résumé.');
   await home.close();
