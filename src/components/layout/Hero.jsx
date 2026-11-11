@@ -1,29 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { portfolioData } from '../../data/portfolioData';
-import { Badge, ChevronLink, EASE } from '../ui/primitives';
-
-const fadeUp = (delay) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, delay, ease: EASE },
-});
-
-// Each word rises out of its own mask, one after another.
-const Words = ({ text, start = 0 }) =>
-  text.split(' ').map((word, i) => (
-    <span key={`${word}-${i}`} className="-mb-[0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
-      <motion.span
-        className="inline-block"
-        initial={{ y: '110%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.9, delay: start + i * 0.07, ease: EASE }}
-      >
-        {word}
-        {'\u00a0'}
-      </motion.span>
-    </span>
-  ));
+import { Badge, ChevronLink } from '../ui/primitives';
 
 export const Hero = () => {
   const { identity } = portfolioData;
@@ -55,45 +33,41 @@ export const Hero = () => {
 
       <div className="mx-auto max-w-6xl px-6 pb-[min(13vw,17rem)] pt-32 sm:pt-40">
       <div className="mx-auto max-w-4xl text-center">
-        <motion.div {...fadeUp(0)}>
+        <div>
           <Badge className="rounded-full px-3 py-1 font-medium">
             <span className="h-2 w-2 rounded-full bg-brand ring-2 ring-brand/30" />
-            Currently building at Zalio
+            Open to new opportunities
           </Badge>
-        </motion.div>
+        </div>
 
         <h1 className="type-display mt-8">
-          <Words text="I build products" start={0.1} />
+          I build products
           <br />
           <span className="type-accent text-brand">
-            <Words text="from idea" start={0.32} />
+            from idea{' '}
           </span>
           <span className="relative isolate whitespace-nowrap">
-            {/* Highlight sweeps in once the words have landed */}
-            <motion.span
+            <span
               aria-hidden="true"
-              initial={{ scaleX: 0, rotate: -1 }}
-              animate={{ scaleX: 1, rotate: -1 }}
-              transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
-              className="absolute inset-x-[-0.1em] bottom-[0.06em] top-[0.18em] -z-10 origin-left rounded-xl bg-brand"
+              className="absolute inset-x-[-0.1em] bottom-[0.06em] top-[0.18em] -z-10 -rotate-1 rounded-xl bg-brand"
             />
             <span className="text-brand-ink">
-              <Words text="to production." start={0.5} />
+              to production.
             </span>
           </span>
         </h1>
 
-        <motion.p {...fadeUp(0.14)} className="type-lead mx-auto mt-8 max-w-2xl text-balance">
+        <p className="type-lead mx-auto mt-8 max-w-2xl text-balance">
           I'm {identity.name.split(' ')[0]}, a full-stack software engineer. I build web products end to end — the
           interface, the backend behind it, and the AI features inside.
-        </motion.p>
+        </p>
 
-        <motion.div {...fadeUp(0.22)} className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
           <ChevronLink href="#work">View my work</ChevronLink>
           <ChevronLink href="/Resume.pdf" download="Anthony_Mendoza_Resume.pdf">
             Download résumé
           </ChevronLink>
-        </motion.div>
+        </div>
       </div>
       </div>
     </section>

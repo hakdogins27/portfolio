@@ -19,6 +19,8 @@ Review the PDF visually and check its extracted text after changing the content.
 
 ## Fact checks
 
+- Zalio: completed five-month role; display the duration rather than calendar dates, as requested by Anthony.
+
 - Graduation: May 2026, confirmed by Anthony during this revision.
 - Lifewood: explicitly an internship, June–December 2025, confirmed by Anthony during this revision.
 - GitHub: 137 merged pull requests authored by `hakdogins27` across six accessible Momentum repositories, checked on October 22, 2026. This count excludes direct commits and unmerged work.

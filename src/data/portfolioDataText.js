@@ -20,10 +20,10 @@ export const portfolioDataText = {
       accent: "rgb(var(--color-brand))",
       title: "Junior Developer",
       tag: "Founding Team",
-      period: "Jun 2026 – Present",
-      current: true,
+      period: "5 months",
+      current: false,
       points: [
-        "Part of Zalio's founding engineering team, building a local-first AI business operating system from the ground up",
+        "Helped build a local-first AI business operating system from the ground up as part of Zalio's founding engineering team",
         "Core developer on Zalio Marketing — trend engine, AI briefs, video editor and lead-tracked links",
         "Built the CRM's Campaign Tracker and Forms: planner, dashboards, calendar and form builder",
         "Shipped secure signup webhooks and a de-duplicated Meta Lead Ads sync",

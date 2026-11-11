@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { lazy, Suspense, useEffect, useLayoutEffect, useRef } from 'react';
 import { MotionConfig, motion, useScroll, useSpring } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Hero } from './Hero';
@@ -7,10 +7,11 @@ import { About } from '../sections/About';
 import { Skills } from '../sections/Skills';
 import { Experience } from '../sections/Experience';
 import { Contact } from '../sections/Contact';
-import { ProjectPage } from '../sections/ProjectPage';
 import { portfolioData } from '../../data/portfolioData';
 import { useRouter } from '../../lib/router';
 import { projectSlug } from '../../lib/projects';
+
+const ProjectPage = lazy(() => import('../sections/ProjectPage').then((module) => ({ default: module.ProjectPage })));
 
 // Thin reading-progress line pinned to the top of the viewport.
 const ScrollProgress = () => {
@@ -57,7 +58,9 @@ export const MainLayout = ({ theme, toggleTheme }) => {
         <Navbar theme={theme} toggleTheme={toggleTheme} />
 
         {project ? (
-          <ProjectPage project={project} />
+          <Suspense fallback={<main className="mx-auto min-h-screen max-w-6xl px-6 pt-32" aria-busy="true"><h1 className="type-title">{project.name}</h1><p role="status" className="type-body mt-6">Loading project details…</p></main>}>
+            <ProjectPage project={project} />
+          </Suspense>
         ) : (
           <main>
             <Hero />

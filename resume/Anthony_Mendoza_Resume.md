@@ -6,12 +6,12 @@ Cebu City, Philippines | [+63 928 478 5737](tel:+639284785737) | [mendozaony27@g
 
 ## Summary
 
-Software engineer on Zalio's founding team, building full-stack products with TypeScript, React, Next.js, Python and PostgreSQL. Experience delivering CRM workflows, AI marketing tools, voice-agent integrations and shared UI components, with automated testing and workflow automation.
+Software engineer with experience on Zalio's founding team, delivering full-stack products with TypeScript, React, Next.js, Python and PostgreSQL. Experience delivering CRM workflows, AI marketing tools, voice-agent integrations and shared UI components, with automated testing and workflow automation.
 
 ## Experience
 
 **Zalio (Momentum Health + Fitness)** | Cebu City, Philippines (Hybrid)
-Junior Developer, Founding Team | Jun 2026 - Present
+Junior Developer, Founding Team | 5 months
 - Built the CRM's Campaign Tracker and Forms: a drag-and-drop form builder, campaign calendars and dashboards, with sign-ups attributed to the originating campaign and form.
 - Implemented secure lead-capture webhooks and Meta Lead Ads synchronization with duplicate prevention and explicit handling of closed forms.
 - Built core Zalio Marketing features: TikTok and Instagram trend discovery, AI creative briefs, and a timeline video editor with FFmpeg rendering to MP4.

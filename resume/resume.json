@@ -8,13 +8,13 @@
     { "text": "anthonymendoza.vercel.app", "href": "https://anthonymendoza.vercel.app" },
     { "text": "github.com/hakdogins27", "href": "https://github.com/hakdogins27" }
   ],
-  "summary": "Software engineer on Zalio's founding team, building full-stack products with TypeScript, React, Next.js, Python and PostgreSQL. Experience delivering CRM workflows, AI marketing tools, voice-agent integrations and shared UI components, with automated testing and workflow automation.",
+  "summary": "Software engineer with experience on Zalio's founding team, delivering full-stack products with TypeScript, React, Next.js, Python and PostgreSQL. Experience delivering CRM workflows, AI marketing tools, voice-agent integrations and shared UI components, with automated testing and workflow automation.",
   "experience": [
     {
       "company": "Zalio (Momentum Health + Fitness)",
       "title": "Junior Developer, Founding Team",
       "location": "Cebu City, Philippines (Hybrid)",
-      "dates": "Jun 2026 - Present",
+      "dates": "5 months",
       "bullets": [
         "Built the CRM's Campaign Tracker and Forms: a drag-and-drop form builder, campaign calendars and dashboards, with sign-ups attributed to the originating campaign and form.",
         "Implemented secure lead-capture webhooks and Meta Lead Ads synchronization with duplicate prevention and explicit handling of closed forms.",

@@ -4,8 +4,8 @@ import { Reveal, SectionHeader } from '../ui/primitives';
 // Verified from GitHub (momentum-au org, Jun–Oct 2026) — update as the numbers grow.
 const STATS = [
   { value: '137', label: 'Merged pull requests at Zalio' },
-  { value: '4', label: 'Zalio products I build on' },
-  { value: 'Cebu', label: 'Based in the Philippines, working hybrid' },
+  { value: '4', label: 'Zalio products I contributed to' },
+  { value: 'Cebu', label: 'Based in the Philippines' },
 ];
 
 export const About = () => (
@@ -15,7 +15,7 @@ export const About = () => (
         <SectionHeader index="02" eyebrow="About" title="A bit" emphasis="about me." />
         <Reveal className="space-y-5">
           <p className="type-lead">
-            I'm a software engineer from Cebu. In 2026 I joined Zalio's founding team, where I build AI products end
+            I'm a software engineer from Cebu. I spent five months on Zalio's founding team, building AI products end
             to end — from the marketing studio's video pipeline to the phone calls Alex makes.
           </p>
           <p className="type-lead">

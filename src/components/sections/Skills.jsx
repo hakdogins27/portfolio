@@ -37,7 +37,7 @@ export const Skills = () => {
           eyebrow="Skills"
           title="What I"
           emphasis="work with."
-          description="The stack I use day to day at Zalio and in my own projects."
+          description="The stack I used at Zalio and continue to use in my own projects."
         />
         <div className="border-t border-border">
           {skills.map((group) => (
